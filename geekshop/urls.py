@@ -26,8 +26,8 @@ from django.conf.urls import include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', mainapp_views.index, name='Index'),
-    # path('products/', mainapp_views.products, name='products'),
     path('products/', include('mainapp.urls', namespace='products')),
+    path('auth/', include('authapp.urls', namespace='auth'))
 
 ]
 if settings.DEBUG:

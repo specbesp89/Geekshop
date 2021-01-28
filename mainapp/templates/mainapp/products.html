@@ -8,6 +8,7 @@
 {% endblock %}
 
 
+
 {% block content %}
 
 
@@ -24,11 +25,9 @@
 
                 <h1 class="my-4">GeekShop</h1>
                 <div class="list-group">
-                    <a href="#" class="list-group-item">Акустические гитары</a>
-                    <a href="#" class="list-group-item">Электрогитары</a>
-                    <a href="#" class="list-group-item">Бас-гитары</a>
-                    <a href="#" class="list-group-item">Гитарные усилители</a>
-                    <a href="#" class="list-group-item">Комплектующие </a>
+                    {% for category in categories %}
+                    <a href="#" class="list-group-item">{{ category.name}}</a>
+                    {% endfor %}
                 </div>
 
             </div>
@@ -71,7 +70,7 @@
                         <div class="card h-100">
                             <a href="#">
                                 <img class="card-img-top"
-                                     src="{% static '' %}{{ product.src }}"
+                                     src="/media/{{ product.image }}"
                                      alt="">
                             </a>
                             <div class="card-body">
@@ -79,7 +78,7 @@
                                     <a href="#">{{ product.name}}</a>
                                 </h4>
                                 <h5>{{ product.price}} руб.</h5>
-                                <p class="card-text"> {{ product.description }}</p>
+                                <p class="card-text"> {{ product.short_description }}</p>
                             </div>
                             <div class="card-footer text-center">
                                 <button type="button" class="btn btn-outline-success">Отправить в корзину</button>

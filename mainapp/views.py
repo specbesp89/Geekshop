@@ -13,8 +13,8 @@ def index(request):
     return render(request, 'mainapp/index.html', context)
 
 
-def products(request, pk=None):
-    print(pk)
+def products(request, id=None):
+    print(id)
 
 
     context = {

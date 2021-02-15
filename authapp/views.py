@@ -5,7 +5,8 @@ from basket.models import Basket
 from django.contrib import auth, messages
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-
+from django.views.generic.edit import CreateView
+from django.urls import reverse_lazy
 
 from authapp.models import user
 
@@ -26,19 +27,30 @@ def login(request):
     context = {'form': form}
     return render(request, 'authapp/login.html', context)
 
-def register(request):
-    if request.method == 'POST':
-        form = UserRegisterForm(data=request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Пользователь зарегистрирован')
-            return HttpResponseRedirect(reverse('auth:login'))
-    else:
-        form = UserRegisterForm()
 
-    context = {'form': form}
 
-    return render(request, 'authapp/register.html', context)
+#
+# def register(request):
+#     if request.method == 'POST':
+#         form = UserRegisterForm(data=request.POST)
+#         if form.is_valid():
+#             form.save()
+#             messages.success(request, 'Пользователь зарегистрирован')
+#             return HttpResponseRedirect(reverse('auth:login'))
+#     else:
+#         form = UserRegisterForm()
+#
+#     context = {'form': form}
+#
+#     return render(request, 'authapp/register.html', context)
+
+class UserRegisterView(CreateView):
+    model = user
+    template_name = 'authapp/register.html'
+    form_class = UserRegisterForm
+    success_url = reverse_lazy('auth:login')
+
+
 
 def logout(request):
     auth.logout(request)
